@@ -1,16 +1,18 @@
 <?xml version="1.0" ?>
 
 <project name="libphonenumber-javascript" default="compile">
+  <property name="libphonenumber-js.dir"
+            value="${basedir}/deps/libphonenumber/javascript/i18n/phonenumbers" />
   <property name="closure-compiler.dir"
-            value="${basedir}/../../closure-compiler" />
+          value="${basedir}/deps/closure-compiler" />
   <property name="closure-compiler.jar"
-            value="${closure-compiler.dir}/build/compiler.jar" /> 
+            value="${closure-compiler.dir}/build/compiler.jar" />
   <property name="closure-library.dir"
-            value="${basedir}/../../closure-library" />
+            value="${basedir}/deps/closure-library" />
   <property name="closure-linter.dir"
-            value="${basedir}/../../closure-linter" />
+            value="${basedir}/deps/closure-linter" />
   <property name="python-gflags.dir"
-            value="${basedir}/../../python-gflags" />
+            value="${basedir}/deps/python-gflags" />
 
   <macrodef name="closure-compile">
     <attribute name="inputfile" />
@@ -91,29 +93,29 @@
   <target name="setnulldevice" depends="nul,devnull" />
 
   <target name="clean" description="deletes all generated files">
-    <delete file="i18n/phonenumbers/libphonenumber_api-compiled.js" />
+    <delete file="libphonenumber_api-compiled.js" />
   </target>
 
   <target name="compile-libphonenumber_api"
           description="generates libphonenumber_api-compiled.js">
-    <closure-compile inputfile="i18n/phonenumbers/libphonenumber_api.js"
-                     outputfile="i18n/phonenumbers/libphonenumber_api-compiled.js">
+    <closure-compile inputfile="libphonenumber_api.js"
+                     outputfile="libphonenumber_api-compiled.js">
       <extraflags>
-        <arg line='-p "i18n/phonenumbers"' />
-        <arg line='-e "i18n/phonenumbers/metadatafortesting.js"' />
-        <arg line='-e "i18n/phonenumbers/metadatalite.js"' />
-        <arg line='-e "i18n/phonenumbers/regioncodefortesting.js"' />
+        <arg line='-p "${libphonenumber-js.dir}"' />
+        <arg line='-e "${libphonenumber-js.dir}/metadatafortesting.js"' />
+        <arg line='-e "${libphonenumber-js.dir}/metadatalite.js"' />
+        <arg line='-e "${libphonenumber-js.dir}/regioncodefortesting.js"' />
       </extraflags>
     </closure-compile>
   </target>
 
   <target name="compile-tests" depends="setnulldevice">
-    <closure-compile inputfile="i18n/phonenumbers/phonenumberutil_test.js"
+    <closure-compile inputfile="${libphonenumber-js.dir}/phonenumberutil_test.js"
                      outputfile="${null.device}">
       <extraflags>
-        <arg line='-p "i18n/phonenumbers"' />
-        <arg line='-e "i18n/phonenumbers/metadata.js"' />
-        <arg line='-e "i18n/phonenumbers/metadatalite.js"' />
+        <arg line='-p "${libphonenumber-js.dir}"' />
+        <arg line='-e "${libphonenumber-js.dir}/metadata.js"' />
+        <arg line='-e "${libphonenumber-js.dir}/metadatalite.js"' />
       </extraflags>
     </closure-compile>
   </target>
@@ -121,8 +123,10 @@
   <target name="compile" depends="compile-libphonenumber_api,compile-tests" />
 
   <target name="lint" description="lints all javascript files">
-    <gjslint inputfile="i18n/phonenumbers/libphonenumber_api.js" />
-    <gjslint inputfile="i18n/phonenumbers/phonenumberutil*.js" />
+    <gjslint inputfile="libphonenumber_api.js" />
+    <gjslint inputfile="${libphonenumber-js.dir}/phonenumberutil*.js" />
+    <gjslint inputfile="${libphonenumber-js.dir}/asyoutypeformatter*.js" />
+    <gjslint inputfile="${libphonenumber-js.dir}/phonenumberutil*.js" />
   </target>
 
 </project>
