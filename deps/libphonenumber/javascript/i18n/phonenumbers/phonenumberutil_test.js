@@ -424,6 +424,29 @@ function testGetCountryMobileToken() {
       phoneUtil.getCountryCodeForRegion(RegionCode.SE)));
 }
 
+function testGetSupportedRegions() {
+  assertTrue(phoneUtil.getSupportedRegions().length > 0);
+  assertTrue(goog.array.contains(
+      phoneUtil.getSupportedRegions(), RegionCode.US));
+  assertFalse(goog.array.contains(
+      phoneUtil.getSupportedRegions(), RegionCode.UN001));
+  assertFalse(goog.array.contains(phoneUtil.getSupportedRegions(), '800'));
+}
+
+function testGetSupportedGlobalNetworkCallingCodes() {
+  assertTrue(phoneUtil.getSupportedGlobalNetworkCallingCodes().length > 0);
+  assertFalse(goog.array.contains(
+      phoneUtil.getSupportedGlobalNetworkCallingCodes(), RegionCode.US));
+  assertTrue(goog.array.contains(
+      phoneUtil.getSupportedGlobalNetworkCallingCodes(), 800));
+  goog.array.forEach(
+      phoneUtil.getSupportedGlobalNetworkCallingCodes(),
+      function(countryCallingCode) {
+        assertEquals(RegionCode.UN001,
+            phoneUtil.getRegionCodeForCountryCode(countryCallingCode));
+      });
+}
+
 function testGetNationalSignificantNumber() {
   assertEquals('6502530000',
       phoneUtil.getNationalSignificantNumber(US_NUMBER));
@@ -1755,22 +1778,6 @@ function testIsPossibleNumberWithReason() {
 
   assertEquals(VR.TOO_LONG,
       phoneUtil.isPossibleNumberWithReason(INTERNATIONAL_TOLL_FREE_TOO_LONG));
-
-  // Try with number that we don't have metadata for.
-  /** @type {i18n.phonenumbers.PhoneNumber} */
-  var adNumber = new i18n.phonenumbers.PhoneNumber();
-  adNumber.setCountryCode(376);
-  adNumber.setNationalNumber(12345);
-  assertEquals(VR.IS_POSSIBLE,
-      phoneUtil.isPossibleNumberWithReason(adNumber));
-  adNumber.setCountryCode(376);
-  adNumber.setNationalNumber(1);
-  assertEquals(VR.TOO_SHORT,
-      phoneUtil.isPossibleNumberWithReason(adNumber));
-  adNumber.setCountryCode(376);
-  adNumber.setNationalNumber(123456789012345678);
-  assertEquals(VR.TOO_LONG,
-      phoneUtil.isPossibleNumberWithReason(adNumber));
 }
 
 function testIsNotPossibleNumber() {
@@ -3064,7 +3071,7 @@ function testCountryWithNoNumberDesc() {
   assertEquals('+37612345', phoneUtil.format(adNumber, PNF.E164));
   assertEquals('12345', phoneUtil.format(adNumber, PNF.NATIONAL));
   assertEquals(PNT.UNKNOWN, phoneUtil.getNumberType(adNumber));
-  assertTrue(phoneUtil.isValidNumber(adNumber));
+  assertFalse(phoneUtil.isValidNumber(adNumber));
 
   // Test dialing a US number from within Andorra.
   assertEquals('00 1 650 253 0000',

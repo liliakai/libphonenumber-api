@@ -17,7 +17,7 @@
   <macrodef name="closure-compile">
     <attribute name="inputfile" />
     <attribute name="outputfile" />
-    <attribute name="compilationlevel" default="ADVANCED_OPTIMIZATIONS" />
+    <attribute name="compilationlevel" default="SIMPLE_OPTIMIZATIONS" />
     <attribute name="outputmode" default="compiled" />
     <attribute name="outputwrapper" default="(function(){%output%})();" />
     <element name="extraflags" optional="yes" />

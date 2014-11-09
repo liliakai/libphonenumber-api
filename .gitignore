@@ -1,0 +1,15 @@
+deps/closure-compiler/
+deps/closure-library/
+deps/closure-linter/
+deps/python-gflags/
+
+deps/libphonenumber/.svn/
+deps/libphonenumber/codereview.settings
+deps/libphonenumber/cpp/
+deps/libphonenumber/debian/
+deps/libphonenumber/java/
+deps/libphonenumber/javadoc/
+deps/libphonenumber/pom.xml
+deps/libphonenumber/resources/
+deps/libphonenumber/tools/
+
