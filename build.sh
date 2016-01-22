@@ -26,7 +26,7 @@ echo "Do you wish to update 'deps/libphonenumber'?"
 select yn in "Yes" "No"; do
     case $yn in
         Yes)    rm -rf deps/libphonenumber
-                svn checkout http://libphonenumber.googlecode.com/svn/trunk/ deps/libphonenumber
+                git clone https://github.com/googlei18n/libphonenumber/ deps/libphonenumber
                 break;;
         No )    break;;
         *)      echo "Please choose one of the options above, dude! ;)";
