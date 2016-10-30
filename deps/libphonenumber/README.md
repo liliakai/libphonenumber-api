@@ -1,3 +1,6 @@
+<p align="right">
+<img src="https://travis-ci.org/googlei18n/libphonenumber.svg?branch=master">
+</p>
 # What is it?
 
 Google's common Java, C++ and JavaScript library for parsing, formatting, and validating international phone numbers. The Java version is optimized for running on smartphones, and is used by the Android framework since 4.0 (Ice Cream Sandwich).
@@ -17,7 +20,7 @@ If you want to report an issue, or to contribute to the project, please read the
   * ` PhoneNumberOfflineGeocoder ` - provides geographical information related to a phone number.
   * ` PhoneNumberToCarrierMapper ` - provides carrier information related to a phone number.
 
-# Demo (v7.2.3)
+# Demo (v7.7.3)
 [Java](http://libphonenumber.appspot.com/)
 
 [JavaScript](https://rawgit.com/googlei18n/libphonenumber/master/javascript/i18n/phonenumbers/demo-compiled.html)
@@ -31,7 +34,7 @@ http://repo1.maven.org/maven2/com/googlecode/libphonenumber/libphonenumber/
 Let's say you have a string representing a phone number from Switzerland. This is how you parse/normalize it into a ` PhoneNumber ` object:
 
 ```java
-String swissNumberStr = "044 668 18 00"
+String swissNumberStr = "044 668 18 00";
 PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
 try {
   PhoneNumber swissNumberProto = phoneUtil.parse(swissNumberStr, "CH");
@@ -48,7 +51,7 @@ At this point, swissNumberProto contains:
 }
 ```
 
-` PhoneNumber ` is a class that is auto-generated from the phonenumber.proto with necessary modifications for efficiency. For details on the meaning of each field, refer to https://github.com/googlei18n/test/blob/master/resources/phonenumber.proto
+` PhoneNumber ` is a class that is auto-generated from the phonenumber.proto with necessary modifications for efficiency. For details on the meaning of each field, refer to https://github.com/googlei18n/libphonenumber/blob/master/resources/phonenumber.proto
 
 Now let us validate whether the number is valid:
 ```java
@@ -105,11 +108,10 @@ System.out.println(carrierMapper.getNameForNumber(swissMobileNumber, Locale.ENGL
 ---
 
 
-More examples on how to use the library can be found in the unittests at https://github.com/googlei18n/test/tree/master/java/libphonenumber/test/com/google/i18n/phonenumbers
+More examples on how to use the library can be found in the unittests at https://github.com/googlei18n/libphonenumber/tree/master/java/libphonenumber/test/com/google/i18n/phonenumbers
 
 # Known Ports
 Several people are porting the phone number library to other languages. Here are some we know about. Note that they are done on voluntary basis by developers outside our project, so we cannot guarantee their quality.
-  * C#: https://github.com/erezak/libphonenumber-csharp
   * objective-c: https://github.com/iziz/libPhoneNumber-iOS
   * Python: https://github.com/daviddrysdale/python-phonenumbers
   * Ruby: https://github.com/sstephenson/global_phone

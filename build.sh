@@ -1,6 +1,7 @@
 
 # check if ant is installed
 command -v ant >/dev/null 2>&1 || { echo >&2 "Apache Ant is required for building. Aborting."; exit 1; }
+command -v mvn >/dev/null 2>&1 || { echo >&2 "Apache Maven is required for building. Aborting."; exit 1; }
 
 # clone/checkout dependencies
 echo "Do you wish to update the dependencies (closure-library, closure-compiler, closure-linter and python-gflags)?"
@@ -13,8 +14,8 @@ select yn in "Yes" "No"; do
                 rm -rf deps/python-gflags
                 git clone https://github.com/google/closure-library.git deps/closure-library
                 git clone https://github.com/google/closure-compiler.git deps/closure-compiler
-                svn checkout http://closure-linter.googlecode.com/svn/trunk/ deps/closure-linter
-                svn checkout http://python-gflags.googlecode.com/svn/trunk/ deps/python-gflags
+                git clone https://github.com/google/closure-linter.git deps/closure-linter
+                git clone https://github.com/google/python-gflags.git deps/python-gflags
                 break;;
         No )    break;;
         *)      echo "Please choose one of the options above, dude! ;)";
@@ -34,7 +35,9 @@ select yn in "Yes" "No"; do
 done
 
 echo "Building closure-compiler..."
-ant -f deps/closure-compiler/build.xml
+cd deps/closure-compiler
+mvn -DskipTests
+cd ../..
 
 echo "Building libphonenumber-api..."
 ant -f build-api.xml compile-libphonenumber_api

@@ -14,9 +14,9 @@ How to setup:
 
 * `git clone https://github.com/google/closure-compiler.git`
 
-* `svn checkout http://closure-linter.googlecode.com/svn/trunk/ ~/src/closure-linter`
+* `git clone https://github.com/google/closure-linter.git`
 
-* `svn checkout http://python-gflags.googlecode.com/svn/trunk/ ~/src/python-gflags`
+* `git clone https://github.com/google/python-gflags.git`
 
 If you don't checkout the dependencies next to libphonenumber:
 
@@ -33,7 +33,7 @@ If you don't checkout the dependencies next to libphonenumber:
 How to compile:
 ===============
 1. Build Closure's compiler.jar:
-  `ant -f ~/src/closure-compiler/build.xml`
+  `mvn -DskipTests`
 
 2. Compile the demo.js and all its dependencies to one file: `demo-compiled.js`:
   `ant -f javascript/build.xml compile-demo`
